@@ -1,0 +1,35 @@
+#header {
+    border-bottom: 1px solid #ccc;
+}
+
+#header .row > div {
+    height: 40px;
+    border-left: 1px solid #ccc;
+    text-align: center;
+    line-height: 40px;
+}
+
+#header .row > div:first-child {
+    border-left: 0;
+}
+
+#header .row > div > a {
+    color: #666;
+    font-size: 12px;
+}
+
+#header .row > div > a > img {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#header .row > div > a:hover img {
+    display: block;
+}
+
+#header .row > div > .btn-login {
+    color: #666;
+}

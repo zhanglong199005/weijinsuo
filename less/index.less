@@ -1,0 +1,378 @@
+/* 1. 引入变量的less文件 */
+
+@import 'variables.less';
+
+/* 2. 引入公共函数的less文件 */
+
+@import 'mixins.less';
+
+/* 头部区域样式 */
+
+#header {
+    border-bottom: 1px solid @border-color;
+    .row {
+        > div {
+            /* + 表示下一个兄弟选择器 */
+            /* ~ 表示相邻的所有兄弟 */
+            & ~ div {
+                border-left: 1px solid @border-color;
+            }
+            height: 40px;
+            line-height: 40px;
+            font-size: 12px;
+            >a {
+                color: @a-color;
+                text-decoration: none;
+                >img {
+                    top: 40px;
+                    z-index: 999;
+                    display: none;
+                    /* 调用自定义函数 把函数里面的代码放到这里来执行*/
+                    .position-center();
+                }
+                &:hover {
+                    >img {
+                        display: block;
+                    }
+                }
+            }
+            .btn-login {
+                color: @a-color;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+
+/* 导航条区域的样式 */
+
+#nav {
+    background-color: #fff;
+    /* 高度不会继承 不推荐给父元素写死高度 */
+    /* height: 80px; */
+    margin-bottom: 0;
+    /* 设置宽度100% 因为固定定位脱标了后没有100%宽度了 */
+    width: 100%;
+    z-index: 998;
+    top:0;
+    .navbar-header {
+        .navbar-toggle {
+            /* 让移动端的按钮在80px的高度中居中 */
+            margin-top: 23px;
+        }
+        .navbar-brand {
+            height: 80px;
+            line-height: 50px;
+            .icon-icon {
+                font-size: 30px;
+                color: @main-color;
+            }
+            .icon-logo {
+                font-size: 30px;
+                color: #333;
+            }
+        }
+    }
+    /* .collapse{ 注意这个类名在移动端收缩展开会变化 会导致没有样式*/
+    .navbar-collapse {
+        .navbar-nav {
+            >li {
+                >a {
+                    height: 80px;
+                    /* 因为a自带了上下15px padding 把内容挤小成50px */
+                    line-height: 50px;
+                    &:hover {
+                        border-bottom: 2px solid @main-color;
+                    }
+                }
+                &.active {
+                    >a {
+                        background-color: #fff;
+                        border-bottom: 2px solid @main-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/* 轮播图区域的样式 */
+
+#slide {
+    .large-image {
+        width: 100%;
+        height: 410px;
+        background-position: center center;
+    }
+    .small-image img {
+        width: 100%;
+    }
+}
+
+
+/* 特色介绍区域样式 */
+
+#feature {
+    padding: 40px 0;
+    .media {
+        >a {
+            color: @a-color;
+            text-decoration: none;
+            &:hover {
+                color: @main-color;
+            }
+        }
+    }
+}
+
+
+/* 立即预约区域的样式 */
+
+#booking {
+    border-top: 1px solid @border-color;
+    border-bottom: 1px solid @border-color;
+    padding: 20px 0;
+    /* 在移动端会换行不能使用行高 */
+    /* line-height: 60px; */
+    .text-danger {
+        color: @main-color;
+    }
+}
+
+
+/* 商品区域的样式 */
+
+#products {
+    background-color: #ccc;
+    padding: 40px 0;
+    /* 标题样式 */
+    .nav-tabs {
+        > li {
+            /* 因为突然加一个边框变高 后面元素会被挡住过不来 */
+            height: 45px;
+            &.active {
+                > a {
+                    background-color: transparent;
+                    border-bottom: 3px solid @main-color;
+                }
+            }
+            > a {
+                border: 0;
+                font-size: 16px;
+                color: @a-color;
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+    /* 内容样式 */
+    .tab-content {
+        .tab-pane {
+            /* 第一个栅格控制 3列 2列 1列 响应式布局的 */
+            > .row {
+                >div {
+                    margin-top: 20px;
+                    /* 每个商品的样式 */
+                    .product {
+                        background-color: #fff;
+                        display: flex;
+                        &.active {
+                            background-color: @main-color;
+                            color: #fff;
+                            position: relative;
+                            &::before {
+                                /* 指定图标的字体 */
+                                font-family: 'itcast';
+                                /* 指定图标的编码 */
+                                content: "\e915";
+                                font-size: 30px;
+                                position: absolute;
+                                left: 0px;
+                                /* 图标本身有缝隙 */
+                                top: -6px;
+                            }
+                        }
+                        .left {
+                            flex: 1;
+                            padding: 15px;
+                            h4 {
+                                text-align: center;
+                            }
+                            /* 设置左边内容里面的盒子和文字样式 */
+                            .row {
+                                >div {
+                                    margin-bottom: 10px;
+                                    &:nth-child(even) {
+                                        text-align: right;
+                                    }
+                                    p {
+                                        margin-bottom: 0;
+                                    }
+                                }
+                            }
+                        }
+                        .right {
+                            width: 120px;
+                            /* 单独加一些媒体查询 改变个别特殊屏幕的样式 */
+                            /* 在个人屏幕上屏幕比较小 右边120 会造成左边文字放不下掉下来 针对这种屏幕把右边变小 */
+                            @media(min-width:320px) and (max-width:360px){
+                                width: 90px;
+                            }
+                            /* 单独加一些媒体查询 改变个别特殊屏幕的样式 */
+                            @media(min-width:992px) and (max-width:1200px){
+                                width: 90px;
+                            }
+                            border-left: 1px dashed #ccc;
+                            /* padding: 55px 0; */
+                            text-align: center;
+                            display: flex;
+                            /* 设置伸缩布局的方向垂直方向 */
+                            flex-direction: column;
+                            /* 主轴垂直 主轴居中就是垂直居中 */
+                            justify-content: center;
+                            position: relative;
+                            p {
+                                margin-bottom: 0;
+                                strong {
+                                    font-size: 30px;
+                                }
+                            }
+                            /* 添加小圆使用伪元素 */
+                            &::before,
+                            &::after {
+                                content: '';
+                                width: 16px;
+                                height: 16px;
+                                position: absolute;
+                                background-color: #ccc;
+                                border-radius: 50%;
+                                left: -8px;
+                            }
+                            &::before {
+                                top: -8px;
+                            }
+                            &::after {
+                                bottom: -8px;
+                            }
+                            /* 设置工具提示的样式 */
+                            .tooltips {
+                                position: absolute;
+                                top: 20px;
+                                left: 0;
+                                width: 100%;
+                                text-align: center;
+                                a {
+                                    &:first-of-type {
+                                        border: 1px solid #0f0;
+                                        color: #0f0;
+                                        padding: 5px;
+                                    }
+                                    /* 注意会动态添加元素 a可能不是最后一个元素 使用last-of-type */
+                                    &:last-of-type {
+                                        border: 1px solid #ff0;
+                                        color: #ff0;
+                                        padding: 5px;
+                                        margin-left: 10px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/* 新闻区域的样式 */
+
+#news {
+    padding: 40px 0;
+    .row {
+        >div {
+            >h4 {
+                text-align: center;
+                line-height: 40px;
+                border-bottom: 1px dashed @border-color;
+                position: relative;
+                &::after {
+                    content: '';
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    border: 1px solid @border-color;
+                    position: absolute;
+                    right: -10px;
+                    bottom: -5px;
+                }
+            }
+            /* 标签页的标题样式 */
+            .nav-tabs{
+                border-bottom: 0;
+                >li{
+                    margin-bottom: 20px;
+                    /* 针对小和超小屏幕 让li宽度平分  让里面的a固定宽度并且居中*/
+                    @media(max-width:991px){
+                        width: 25%;
+                        a{
+                            width: 60px;
+                            /* a是块级元素 使用margin:0 auto居中 */
+                            margin: 0px auto;
+                        }
+                    }
+                    &.active{
+                        >a{
+                            background-color: @main-color;
+                        }
+                    }
+                    >a{
+                        border-radius:50%;
+                        border:0;
+                        color:#ccc;
+                        &:hover{
+                            background-color: @main-color;
+                        }
+                        i{
+                            font-size: 30px;
+                        }
+                    }
+                }
+            }
+            /* 标签页的内容的样式 */
+            .tab-content{
+                .tab-pane {
+                    /* 去掉列表组的边框 */
+                    .list-group-item{
+                        border:0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* 合作伙伴的样式 */
+#partner{
+    padding: 20px 0;
+    h3{
+        text-align: center;
+    }
+    .row{
+        div{
+            a{
+                color:@a-color;
+                text-decoration: none;
+                &:hover{
+                    color:@main-color;
+                }                
+                i{
+                    font-size: 60px;
+                }
+            }
+        }
+    }
+}
